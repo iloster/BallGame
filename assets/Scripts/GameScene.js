@@ -28,13 +28,41 @@ cc.Class({
     initOtherBall: function(){
         cc.log("GameScene.initOtherBall");
         this.m_otherBall = cc.find("Canvas/otherBall");
-        this.m_otherBall.setPosition(-320,0);
+        this.m_otherBall1 = cc.find("Canvas/otherBall1");
+        this.m_otherBall2 = cc.find("Canvas/otherBall2");
+        this.m_otherBall3 = cc.find("Canvas/otherBall3");
+        
+        this.m_otherBall.setPosition(-320,-160);
+        this.m_otherBall1.setPosition(320,0);
+        this.m_otherBall2.setPosition(-320,160);
+        this.m_otherBall3.setPosition(320,320);
+        //this.m_otherBall4.setPosition(-320,320);
+        
         var action = cc.repeatForever(
              cc.sequence(
                  cc.moveBy(1, 640, 0), 
                  cc.moveBy(1, -640, 0)
              ));
+        var action1 = cc.repeatForever(
+             cc.sequence(
+                 cc.moveBy(1, -640, 0),
+                 cc.moveBy(1, 640, 0)
+             ));
+        var action2 = cc.repeatForever(
+             cc.sequence(
+                 cc.moveBy(1, 640, 0), 
+                 cc.moveBy(1, -640, 0)
+             ));
+        var action3 = cc.repeatForever(
+             cc.sequence(
+                 cc.moveBy(1, -640, 0),
+                 cc.moveBy(1, 640, 0)
+             ));
         this.m_otherBall.runAction(action);
+        this.m_otherBall1.runAction(action1);
+        this.m_otherBall2.runAction(action2);
+        this.m_otherBall3.runAction(action3);
+          
     },
     
     initMyBall:function(){
