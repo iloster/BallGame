@@ -1,3 +1,5 @@
+var GameData = require("GameData")
+
 cc.Class({
     extends: cc.Component,
 
@@ -18,6 +20,7 @@ cc.Class({
        cc.log("GameScene.onLoad");
        this.initOtherBall();
        this.initMyBall();
+       GameData.gameTime = new Date().getTime();
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -72,7 +75,8 @@ cc.Class({
             cc.log("touch start");
         }, this);
         this.m_myBall.on(cc.Node.EventType.TOUCH_END, function (event) {
-            cc.log("touch end");
+            cc.log("touch end "+this.m_myBall.y);
+            this.checkGameOver()
         }, this);
           this.m_myBall.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
              //console.log("touch move:"+event.getLocation().x);
@@ -84,4 +88,9 @@ cc.Class({
         }, this);
     },
     
+    checkGameOver:function(){
+        if(this.m_myBall.y>320){
+            cc.director.loadScene('GameOverScene');
+        }
+    }
 });

@@ -1,3 +1,4 @@
+var GameData = require("GameData")
 cc.Class({
     extends: cc.Component,
 
@@ -15,22 +16,10 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.director.getCollisionManager().enabled = true;
-        cc.director.getCollisionManager().enabledDebugDraw = true;
-        cc.director.getCollisionManager().enabledDrawBoundingBox = true;
+        var startTime = GameData.gameTime;
+        var endTime = new Date().getTime();
+        cc.log(endTime - startTime);
     },
-    
-    onCollisionEnter: function (other) {
-        this.node.color = cc.Color.RED;
-    },
-    
-    onCollisionStay: function (other) {
-        // console.log('on collision stay');
-    },
-    
-    onCollisionExit: function () {
-
-    }
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
