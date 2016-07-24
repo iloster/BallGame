@@ -27,10 +27,18 @@ cc.Class({
         }
         this.m_gameTimeTxt = cc.find("Canvas/gameTimeTxt").getComponent(cc.Label);
         this.m_gameTimeTxt.string = (endTime - startTime)/1000 + "s";
+        
+        this.reset();
     },
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
     // },
+    reset:function(){
+        this.m_bg = cc.find("Canvas/bg");
+        this.m_bg.on(cc.Node.EventType.TOUCH_END, function (event) {
+          cc.director.loadScene('GameScene');
+        }, this);
+    }
 });
