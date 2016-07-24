@@ -17,7 +17,15 @@ var GameData = cc.Class({
             set: function (value) {
                 this._gameChance = value;
             }
-        }  //游戏次数
+        },  //游戏次数
+        gameResult:{
+            get: function(){
+                return this._gameResult;
+            },
+            set: function(value){
+                this._gameResult = value;
+            }
+        }
     },
 
     statics: {

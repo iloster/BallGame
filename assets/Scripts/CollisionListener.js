@@ -1,3 +1,4 @@
+var GameData = require("GameData");
 cc.Class({
     extends: cc.Component,
 
@@ -16,12 +17,19 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         cc.director.getCollisionManager().enabled = true;
-        cc.director.getCollisionManager().enabledDebugDraw = true;
-        cc.director.getCollisionManager().enabledDrawBoundingBox = true;
+       // cc.director.getCollisionManager().enabledDebugDraw = true;
+        // cc.director.getCollisionManager().enabledDrawBoundingBox = true;
+        this.m_isGameOver = false;
     },
     
     onCollisionEnter: function (other) {
-        this.node.color = cc.Color.RED;
+        //this.node.color = cc.Color.RED;
+        if(!this.m_isGameOver)
+        {
+            GameData.gameResult = 0;
+            this.m_isGameOver = true;
+            cc.director.loadScene('GameOverScene');
+        }
     },
     
     onCollisionStay: function (other) {

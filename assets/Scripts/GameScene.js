@@ -35,31 +35,31 @@ cc.Class({
         this.m_otherBall2 = cc.find("Canvas/otherBall2");
         this.m_otherBall3 = cc.find("Canvas/otherBall3");
         
-        this.m_otherBall.setPosition(-320,-160);
-        this.m_otherBall1.setPosition(320,0);
-        this.m_otherBall2.setPosition(-320,160);
-        this.m_otherBall3.setPosition(320,320);
+        this.m_otherBall.setPosition(-320,-240);
+        this.m_otherBall1.setPosition(320,-80);
+        this.m_otherBall2.setPosition(-320,80);
+        this.m_otherBall3.setPosition(320,240);
         //this.m_otherBall4.setPosition(-320,320);
         
         var action = cc.repeatForever(
              cc.sequence(
-                 cc.moveBy(1, 640, 0), 
-                 cc.moveBy(1, -640, 0)
+                 cc.moveBy(2, 640, 0), 
+                 cc.moveBy(2, -640, 0)
              ));
         var action1 = cc.repeatForever(
              cc.sequence(
-                 cc.moveBy(1, -640, 0),
-                 cc.moveBy(1, 640, 0)
+                 cc.moveBy(2, -640, 0),
+                 cc.moveBy(2, 640, 0)
              ));
         var action2 = cc.repeatForever(
              cc.sequence(
-                 cc.moveBy(1, 640, 0), 
-                 cc.moveBy(1, -640, 0)
+                 cc.moveBy(2, 640, 0), 
+                 cc.moveBy(2, -640, 0)
              ));
         var action3 = cc.repeatForever(
              cc.sequence(
-                 cc.moveBy(1, -640, 0),
-                 cc.moveBy(1, 640, 0)
+                 cc.moveBy(2, -640, 0),
+                 cc.moveBy(2, 640, 0)
              ));
         this.m_otherBall.runAction(action);
         this.m_otherBall1.runAction(action1);
@@ -71,6 +71,7 @@ cc.Class({
     initMyBall:function(){
         cc.log("GameScene.initMyBall");
         this.m_myBall = cc.find("Canvas/myBall"); //获取自己的球
+        this.m_myBall.setPosition(-220,-420);
          this.m_myBall.on(cc.Node.EventType.TOUCH_START, function (event) {
             cc.log("touch start");
         }, this);
@@ -80,16 +81,32 @@ cc.Class({
         }, this);
           this.m_myBall.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
              //console.log("touch move:"+event.getLocation().x);
-             this.m_myBall.x += event.getDeltaX();
-             this.m_myBall.y += event.getDeltaY();
+             if(this.checkBox(event))
+             {
+                this.m_myBall.x += event.getDeltaX();
+                this.m_myBall.y += event.getDeltaY();
+             }
         }, this);
         this.m_myBall.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
              cc.log("touch cancel");
         }, this);
     },
-    
+    checkBox:function(event){
+      var x = this.m_myBall.x + event.getDeltaX();
+      var y = this.m_myBall.y + event.getDeltaY();
+      cc.log("x="+x+",y="+y);
+      if(x<-270||x>270||y<-430||y>430)
+        return false;
+      if(x>-210&&(y>-480&&y<-310))
+        return false;
+      else if(x<210&&y>310&&y<480)
+        return false;
+      else
+        return true;
+    },
     checkGameOver:function(){
         if(this.m_myBall.y>320){
+            GameData.gameResult = 1;
             cc.director.loadScene('GameOverScene');
         }
     }

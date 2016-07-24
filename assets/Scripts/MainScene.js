@@ -18,6 +18,11 @@ cc.Class({
         cc.director.preloadScene('GameScene', function () {
             cc.log('Next scene preloaded');
         });
+        this.m_bg = cc.find("Canvas/bg");
+        this.m_bg.on(cc.Node.EventType.TOUCH_END, function (event) {
+          // this.checkGameOver()
+          this.onStartGame();
+        }, this);
     },
 
     // called every frame, uncomment this function to activate update callback

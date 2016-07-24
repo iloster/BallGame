@@ -18,7 +18,15 @@ cc.Class({
     onLoad: function () {
         var startTime = GameData.gameTime;
         var endTime = new Date().getTime();
-        cc.log(endTime - startTime);
+        cc.log("cost time:"+(endTime - startTime));
+        this.m_gameResultTxt = cc.find("Canvas/gameResultTxt").getComponent(cc.Label);
+        if(GameData.gameResult == 1){
+            this.m_gameResultTxt.string = "Successful!";
+        }else{
+            this.m_gameResultTxt.string = "Failed!";
+        }
+        this.m_gameTimeTxt = cc.find("Canvas/gameTimeTxt").getComponent(cc.Label);
+        this.m_gameTimeTxt.string = (endTime - startTime)/1000 + "s";
     },
 
     // called every frame, uncomment this function to activate update callback
